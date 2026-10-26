@@ -19,11 +19,11 @@ class PayController extends Controller
         ]);
     }
 
-    public function generatePreferenceId()
+    private function generatePreferenceId(): string
     {
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
 
-        $client = new PreferenceClient();
+        $client = new PreferenceClient;
 
         $preference = $client->create([
             'items' => [
@@ -39,5 +39,4 @@ class PayController extends Controller
 
         return $preference->id;
     }
-
 }

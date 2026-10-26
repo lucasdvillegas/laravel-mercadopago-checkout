@@ -12,7 +12,6 @@ import { dashboard } from '@/routes';
 import { usePage } from '@inertiajs/vue3';
 import { loadMercadoPago } from '@mercadopago/sdk-js';
 
-
 const page = usePage();
 
 defineOptions({
@@ -43,20 +42,15 @@ onMounted(async () => {
             locale: 'es-AR',
         });
 
-        brickController = await mp.bricks().create(
-            'wallet',
-            'wallet_container',
-            {
+        brickController = await mp
+            .bricks()
+            .create('wallet', 'wallet_container', {
                 initialization: {
                     preferenceId: props.preference,
                 },
-            },
-        );
+            });
     } catch (error) {
-        console.error(
-            'Error al inicializar Mercado Pago:',
-            error,
-        );
+        console.error('Error al inicializar Mercado Pago:', error);
     }
 });
 
@@ -88,20 +82,20 @@ onBeforeUnmount(() => {
                 <PlaceholderPattern />
             </div>
         </div>
-        <div
-             class="relative min-h-screen flex-1 rounded-xl md:min-h-min"
-         >
-             <Card>
-                 <CardContent class="flex flex-col items-center p-4">
-                    <div class="text-2xl font-bold mt-2">Monto a pagar 100$</div>
+        <div class="relative min-h-screen flex-1 rounded-xl md:min-h-min">
+            <Card>
+                <CardContent class="flex flex-col items-center p-4">
+                    <div class="mt-2 text-2xl font-bold">
+                        Monto a pagar 100$
+                    </div>
 
                     <!-- <Button class="px-4 py-2 rounded my-4 flex cursor-pointer w-60">
                         <img src="/logos/mp_logo.png" alt="Mercado Pago" class="h-10 object-cover" />
                     </Button> -->
 
                     <div id="wallet_container"></div>
-                 </CardContent>
-             </Card>
-         </div>
+                </CardContent>
+            </Card>
+        </div>
     </div>
 </template>

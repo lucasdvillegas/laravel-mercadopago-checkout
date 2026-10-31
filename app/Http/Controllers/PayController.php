@@ -35,6 +35,15 @@ class PayController extends Controller
                     'currency_id' => 'ARS',
                 ],
             ],
+            // Redigir a las rutas
+            'back_urls' => [
+                "success" => route('pay'),
+                "failure" => route('pay'),
+                "pending" => route('pay')
+            ],
+            // Volver a "Pay" al aprobar el pago.
+            'auto_return' => "approved",
+            'notification_url' => route('webhooks.mercadopago'),
         ]);
 
         return $preference->id;
